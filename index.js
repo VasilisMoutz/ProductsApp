@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-
 //Routes
 const user = require('./routes/user.route');
 const userProducts = require('./routes/user-products.route');
@@ -14,10 +13,7 @@ const product = require('./routes/product.route');
 const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('./swagger');
 
-//Basic initialisation
 const app = express();
-const port = 3000;
-
 
 //Connect to Database
 mongoose.connect(process.env.MONGO_URI)
@@ -46,6 +42,4 @@ app.use('/api-docs',
 swaggerUI.serve,
 swaggerUI.setup(swaggerDocument.options));
 
-app.listen(port, () => {
-    console.log('Listening on Port: 3000');
-})
+module.exports = app;
