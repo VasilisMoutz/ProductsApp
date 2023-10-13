@@ -7,7 +7,7 @@ require('dotenv').config();
 //Routes
 const user = require('./routes/user.route');
 const userProducts = require('./routes/user-products.route');
-const product = require('./routes/product.route');
+const products = require('./routes/products.route');
 
 //Swagger
 const swaggerUI = require('swagger-ui-express');
@@ -35,6 +35,7 @@ app.use(cors({
 
 // Routing
 app.use('/api/users', user);
+app.use('/api/products', products);
 app.use('/api/users-products', userProducts);
 
 //Swagger
