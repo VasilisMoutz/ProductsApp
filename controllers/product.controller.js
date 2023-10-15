@@ -8,11 +8,11 @@ exports.findAll = async (req, res) => {
         const result = await Product.find({});
         res.status(200).json({status: true, data: result});
         console.log("Success finding all products")
-        logger.info("Log info: Success in finding all users");
+        logger.info("Log info: Success in finding all products");
     } catch (err) {
         res.status(400).json({status: false, data: err})
-        console.log("Problem finding all users");
-        logger.error("Problem in finding all users");
+        console.log("Problem finding all products");
+        logger.error("Problem in finding all products");
     }
 }
 
@@ -53,3 +53,37 @@ exports.create = async (req, res) => {
         logger.error("Problem posting new product");
     }
 }
+
+exports.update = async (req, res) => {
+    const product = req.params.product;
+    console.log("Updating Product: ", product);
+
+    const updateProduct = {
+        cost: req.body.cost,
+        description: req.body.description,
+        quantity: req.body.quantity
+    }
+
+    try {
+        const result = await Product.findOneAndUpdate({ product: product }, updateProduct);
+        res.status(200).json({status: true, data: result})
+        console.log("Successful Update of " + product);
+    } catch (err){
+        res.status(400).json({status: false, data: err})
+        console.log("Could not Update: " + product);
+    }
+}
+
+exports.delete = async (req, res) => {
+    const product = req.params.product;
+    console.log("Delete product: ", product);
+
+    try {
+        const result = await Product.findOneAndDelete({product: product})
+        res.status(200).json({status: true, data: result})
+        console.log("Successful Delete of " + product);
+    } catch (err) {
+        res.status(400).json({status: false, data: err})
+        console.log("Could not Update: " + product);
+    }
+}   
